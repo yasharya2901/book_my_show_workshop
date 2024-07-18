@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import { Button, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginUser } from '../calls/users';
+import axios from 'axios';
 
 function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
     if(localStorage.getItem('token')){
-        navigate("/");
     }
   }, [navigate]); 
 
@@ -18,6 +18,23 @@ function Login() {
       if (response.success) {
         message.success(response.message);
         localStorage.setItem('token', response.token);
+        const response2 = await axios.get("/api/users/get-current-user", {
+          headers: {
+              Authorization: `Bearer ${response.token}`,
+          },
+      })
+
+
+      console.log("This is me: -  " +JSON.stringify(response2.data.data.role));
+      if(response2.data.data.role === "admin"){
+        navigate('/admin');
+      }
+      else if(response2.data.data.role === "partner"){
+        navigate('/partner');
+      }
+      else{
+        navigate("/");
+      }
         navigate('/');
       } else {
         message.error(response.message);
