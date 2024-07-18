@@ -21,7 +21,7 @@ async function EmailHelper(templateName, reciverEmail, creds) {
         let content = await fs.promises.readFile(templatePath, "utf-8");
         const emailDetails = {
             to: reciverEmail,
-            from: 'mrinal.bhattacharya@scaler.com', // Change to your verified sender
+            from: process.env.EMAIL_USER, // Change to your verified sender
             subject: 'RESET OTP',
             text: `Hi ${creds.name} this your reset otp ${creds.otp}`,
             html: replaceContent(content, creds),
@@ -30,8 +30,8 @@ async function EmailHelper(templateName, reciverEmail, creds) {
             host: 'smtp.sendgrid.net',
             port: 587,
             auth: {
-                user: "apikey",
-                pass: SENDGRID_API_KEY
+                user: userMail,
+                pass: userPass
             }
         }
 
