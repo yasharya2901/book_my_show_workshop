@@ -15,10 +15,15 @@ const Profile = () => {
               }
           });
 
-          if (user.data.data.role === "partner" || user.data.data.role === "admin") {
+          if (user.data.data.role === "partner" ) {
               navigate("/partner");
               message.error("You are not allowed to access this page");
-          } else {
+            }
+            if (user.data.data.role === "admin" ) {
+                navigate("/admin");
+                message.error("You are not allowed to access this page");
+            }
+            else {
 
           }
       }

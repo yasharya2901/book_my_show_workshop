@@ -18,29 +18,28 @@ function Login() {
       if (response.success) {
         message.success(response.message);
         localStorage.setItem('token', response.token);
-        const response2 = await axios.get("/api/users/get-current-user", {
-          headers: {
-              Authorization: `Bearer ${response.token}`,
-          },
-      })
+          const response2 = await axios.get("/api/users/get-current-user", {
+            headers: {
+                Authorization: `Bearer ${response.token}`,
+            },
+        })
 
 
-      console.log("This is me: -  " +JSON.stringify(response2.data.data.role));
-      if(response2.data.data.role === "admin"){
-        navigate('/admin');
-      }
-      else if(response2.data.data.role === "partner"){
-        navigate('/partner');
-      }
-      else{
-        navigate("/");
-      }
-        navigate('/');
+        console.log("This is me: -  " +JSON.stringify(response2.data.data.role));
+        if(response2.data.data.role === "admin"){
+          navigate('/admin');
+        }
+        else if(response2.data.data.role === "partner"){
+          navigate('/partner');
+        }
+        else{
+          navigate("/");
+        }
       } else {
         message.error(response.message);
       }
     } catch (error) {
-      message.error(error.message);
+      message.error(error.message + " Please try again later");
     }
   };
 

@@ -1,5 +1,5 @@
 const express = require("express");
-const router = require("express").Router();
+const router = express.Router();
 const stripe = require("stripe")(
   "sk_test_51JKPQWSJULHQ0FL7LbqLKOaIcjurlUcdP2hJQkXZw3txlhh0hFrEEEOTwdVxf6sWKqLIrerKpV5EfGvmvntYu7Mt00vJq4YQKL"
 );
@@ -49,19 +49,19 @@ async function handlePaymentIntentSucceeded(paymentIntent) {
 
 router.post("/make-payment", async (req, res) => {
   try {
-    const { token, amount } = req.body;
+    const {token, amount} = req.body;
     const customer = await stripe.customers.create({
       email: token.email,
-      source: token.id,
+      source: token.id
     });
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
-      currency: "usd",
+      currency: 'usd',
       customer: customer.id,
-      payment_method_types: ["card"],
+      payment_method_types: ['card'],
       receipt_email: token.email,
-      description: "Token has been assigned to the movie!",
+      description: "Token has been assigned to the movie!"
     });
 
     // const charge = await stripe.charges.create({
@@ -88,7 +88,7 @@ router.post("/make-payment", async (req, res) => {
 });
 
 // Create a booking after the payment
-router.post("/book-show", async (req, res) => {
+router.post('/book-show', async (req, res) => {
   try {
     const newBooking = new Booking(req.body);
     await newBooking.save();

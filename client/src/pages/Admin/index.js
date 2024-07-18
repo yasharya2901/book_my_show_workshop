@@ -70,7 +70,7 @@ function Admin() {
       
 
   return (
-    <div>
+    <div> 
       <Layout>
             <Header
                 className="d-flex justify-content-between"

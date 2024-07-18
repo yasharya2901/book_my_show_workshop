@@ -4,8 +4,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
 const EmailHelper = require("../utils/emailSender");
+require("dotenv").config();
 
-const router = express.Router();
+const   router = express.Router();
 
 //Function for otp generation
 
@@ -81,6 +82,8 @@ router.post("/login", async (req, res) => {
 // router-level-middleware
 
 router.get("/get-current-user", authMiddleware, async (req, res) => {
+
+  // console.log("started")
   const user = await User.findById(req.body.userId).select("-password");
 
   res.send({
