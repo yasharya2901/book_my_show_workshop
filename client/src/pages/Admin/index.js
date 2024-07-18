@@ -1,13 +1,10 @@
-import React, { Children , useEffect } from 'react'
-import {Layout, Menu, message, Tabs} from 'antd'
+import React from 'react'
+import {Layout, message, Tabs} from 'antd'
 import MovieList from './MovieList'
 import TheatresTable from './TheatresTable'
-import MovieFrom from './MovieForm'
-import {Link , useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {Header} from "antd/es/layout/layout";
-import {HomeOutlined, LogoutOutlined, ProfileOutlined, UserOutlined} from "@ant-design/icons";
-import {useSelector} from "react-redux";
 
 function Admin() {
   const navigate = useNavigate();
